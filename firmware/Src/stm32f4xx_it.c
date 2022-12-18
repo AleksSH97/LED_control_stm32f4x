@@ -20,7 +20,7 @@
 #include "stm32f4xx_it.h"
 
 #include "main.h"
-#include "led.h"
+#include "indication.h"
 
 /******************************************************************************/
 /*           Cortex-M4 Processor Interruption and Exception Handlers          */
@@ -80,7 +80,7 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
 	HAL_IncTick();
-	leds_update();
+	indication_leds_update();
 }
 
 /******************************************************************************/
