@@ -43,7 +43,9 @@ extern TIM_HandleTypeDef htim1;
 extern void MX_TIM1_Init(void);
 extern void timeout_start(struct timeout *tim, uint32_t timeout_ms);
 extern bool timeout_started(struct timeout *tim);
+extern void timeout_stop(struct timeout *timeout);
 extern bool timeout_elapsed(struct timeout *tim);
+extern bool timeout_check(struct timeout *timeout, uint32_t msTime);
 
 #ifdef __cplusplus
 }

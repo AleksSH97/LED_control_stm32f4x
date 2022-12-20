@@ -19,31 +19,65 @@
 #include "stm32f4xx_hal.h"
 #include "main.h"
 #include "tim.h"
+#include "indication.h"
 #include "led.h"
 
 TIM_HandleTypeDef htim1;
 
 void timeout_start(struct timeout *timeout, uint32_t timeout_ms)
 {
+	if (timeout == NULL) {
+		indication_led_error();
+		Error_Handler();
+	}
+
 	timeout->timestamp_ms = HAL_GetTick();
 	timeout->timeout_ms = timeout_ms;
 	timeout->start_flag = true;
 }
 
+void timeout_stop(struct timeout *timeout)
+{
+	if (timeout == NULL) {
+		indication_led_error();
+		Error_Handler();
+	}
+
+	timeout->start_flag = false;
+}
+
 bool timeout_started(struct timeout *timeout)
 {
+	if (timeout == NULL) {
+		indication_led_error();
+		Error_Handler();
+	}
+
 	return timeout->start_flag;
 }
 
 bool timeout_elapsed(struct timeout *timeout)
 {
+	if (timeout == NULL) {
+		indication_led_error();
+		Error_Handler();
+	}
+
 	if (!timeout->start_flag) {
 		return false;
 	}
 
 	if ((HAL_GetTick() - timeout->timestamp_ms) > timeout->timeout_ms) {
 		timeout->start_flag = false;
+		return true;
+	}
 
+	return false;
+}
+
+bool timeout_check(struct timeout *timeout, uint32_t msTime)
+{
+	if ((HAL_GetTick() - timeout->timestamp_ms) > msTime) {
 		return true;
 	}
 
