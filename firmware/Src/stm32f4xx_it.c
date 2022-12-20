@@ -21,6 +21,7 @@
 
 #include "main.h"
 #include "indication.h"
+#include "button.h"
 
 /******************************************************************************/
 /*           Cortex-M4 Processor Interruption and Exception Handlers          */
@@ -81,6 +82,7 @@ void SysTick_Handler(void)
 {
 	HAL_IncTick();
 	indication_leds_update();
+	button_check_mode();
 }
 
 /******************************************************************************/
