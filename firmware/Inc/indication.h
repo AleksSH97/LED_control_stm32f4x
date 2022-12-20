@@ -55,7 +55,8 @@ enum indication_led_speed {
 	INDICATION_LED_SPEED_FAST,
 	INDICATION_LED_SPEED_MIDDLE,
 	INDICATION_LED_SPEED_SLOW,
-	INDICATION_LED_SPEED_VERY_SLOW = 6
+	INDICATION_LED_SPEED_VERY_SLOW = 6,
+	INDICATION_LED_SPEED_HOLD = 20
 };
 
 extern enum indication_led_id id;
@@ -72,6 +73,8 @@ extern void indication_led_turn_on(mculed_t *self);
 extern void indication_led_turn_off(mculed_t *self);
 extern void indication_led_toggle(mculed_t *self);
 extern void indication_leds_update(void);
+extern void indication_led_button_hold(void);
+extern void indication_led_button_double_click(void);
 
 #endif /* INDICATION_H_ */
 
